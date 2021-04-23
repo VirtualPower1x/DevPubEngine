@@ -1,0 +1,5 @@
+spring.datasource.url: jdbc:mysql://localhost:3306/devpub_db
+spring.datasource.username: root
+spring.datasource.password: "zzzzzzzz"
+
+spring.jpa.hibernate.ddl-auto: none
