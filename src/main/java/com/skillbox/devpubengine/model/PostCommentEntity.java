@@ -1,7 +1,6 @@
 package com.skillbox.devpubengine.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
@@ -25,7 +24,7 @@ public class PostCommentEntity {
     @Column(nullable = false)
     private LocalDateTime time;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "text", nullable = false)
     private String text;
 
     public PostCommentEntity() {

@@ -1,7 +1,6 @@
 package com.skillbox.devpubengine.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +16,7 @@ public class PostEntity {
     private byte isActive;
 
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "enum", name = "moderation_status", nullable = false)
+    @Column(columnDefinition = "ENUM('NEW', 'ACCEPTED', 'DECLINED')", name = "moderation_status", nullable = false)
     private ModerationStatus moderationStatus;
 
     @Column(name = "moderator_id")
@@ -33,7 +32,7 @@ public class PostEntity {
     @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "text", nullable = false)
     private String text;
 
     @Column(name = "view_count", nullable = false)

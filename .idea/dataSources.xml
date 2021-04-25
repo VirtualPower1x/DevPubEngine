@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="devpub_db@localhost" uuid="b3b2ec3e-fdc5-44ff-8139-6e4b6f068e96">
+    <data-source source="LOCAL" name="devpub_db@localhost" uuid="865b7ca5-38d3-4189-a7af-6a942deae4bb">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
@@ -9,8 +9,8 @@
       <working-dir>$ProjectFileDir$</working-dir>
       <driver-properties>
         <property name="serverTimezone" value="Europe/Samara" />
+        <property name="treatUtilDateAsTimestamp" value="TRUE" />
       </driver-properties>
-      <time-zone>Europe/Samara</time-zone>
     </data-source>
   </component>
 </project>

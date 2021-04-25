@@ -24,7 +24,14 @@
     <build>
         <pluginManagement>
             <plugins>
-
+                <plugin>
+                    <groupId>org.liquibase</groupId>
+                    <artifactId>liquibase-maven-plugin</artifactId>
+                    <version>4.3.4</version>
+                    <configuration>
+                        <propertyFile>src/main/resources/liquibase.properties</propertyFile>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>
@@ -49,6 +56,11 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.23</version>
+        </dependency>
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>4.3.4</version>
         </dependency>
         <dependency>
             <groupId>javax.xml.bind</groupId>

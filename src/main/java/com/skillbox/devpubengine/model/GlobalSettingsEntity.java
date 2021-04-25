@@ -1,7 +1,6 @@
 package com.skillbox.devpubengine.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "global_settings")

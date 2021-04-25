@@ -1,0 +1,825 @@
+databaseChangeLog:
+- changeSet:
+    id: 1619362993767-1
+    author: Danila Shafranov (VirtualPower1x)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+            name: id
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            name: code
+            type: TINYTEXT
+        - column:
+            constraints:
+              nullable: false
+            name: secret_code
+            type: TINYTEXT
+        - column:
+            constraints:
+              nullable: false
+            name: time
+            type: datetime
+        tableName: captcha_codes
+- changeSet:
+    id: 1619362993767-2
+    author: Danila Shafranov (VirtualPower1x)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+            name: id
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            name: code
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: name
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: value
+            type: VARCHAR(255)
+        tableName: global_settings
+- changeSet:
+    id: 1619362993767-3
+    author: Danila Shafranov (VirtualPower1x)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+            name: id
+            type: INT
+        - column:
+            name: parent_id
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            name: text
+            type: TEXT
+        - column:
+            constraints:
+              nullable: false
+            name: time
+            type: datetime
+        - column:
+            constraints:
+              nullable: false
+            name: post_id
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            name: user_id
+            type: INT
+        tableName: post_comments
+- changeSet:
+    id: 1619362993767-4
+    author: Danila Shafranov (VirtualPower1x)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+            name: id
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            name: time
+            type: datetime
+        - column:
+            constraints:
+              nullable: false
+            name: value
+            type: TINYINT(3)
+        - column:
+            constraints:
+              nullable: false
+            name: post_id
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            name: user_id
+            type: INT
+        tableName: post_votes
+- changeSet:
+    id: 1619362993767-5
+    author: Danila Shafranov (VirtualPower1x)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+            name: id
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            name: is_active
+            type: TINYINT(3)
+        - column:
+            constraints:
+              nullable: false
+            name: moderation_status
+            type: ENUM('NEW', 'ACCEPTED', 'DECLINED')
+        - column:
+            name: moderator_id
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            name: text
+            type: TEXT
+        - column:
+            constraints:
+              nullable: false
+            name: time
+            type: datetime
+        - column:
+            constraints:
+              nullable: false
+            name: title
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: view_count
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            name: user_id
+            type: INT
+        tableName: posts
+- changeSet:
+    id: 1619362993767-6
+    author: Danila Shafranov (VirtualPower1x)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+            name: id
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+            name: tag_id
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+            name: post_id
+            type: INT
+        tableName: tag2post
+- changeSet:
+    id: 1619362993767-7
+    author: Danila Shafranov (VirtualPower1x)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+            name: id
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            name: name
+            type: VARCHAR(255)
+        tableName: tags
+- changeSet:
+    id: 1619362993767-8
+    author: Danila Shafranov (VirtualPower1x)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+            name: id
+            type: INT
+        - column:
+            name: code
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: email
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: is_moderator
+            type: TINYINT(3)
+        - column:
+            constraints:
+              nullable: false
+            name: name
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: password
+            type: VARCHAR(255)
+        - column:
+            name: photo
+            type: TEXT
+        - column:
+            constraints:
+              nullable: false
+            name: reg_time
+            type: datetime
+        tableName: users
+- changeSet:
+    id: 1619362993767-9
+    author: Danila Shafranov (VirtualPower1x)
+    changes:
+    - insert:
+        columns:
+        - column:
+            name: id
+            valueNumeric: 1
+        - column:
+            name: code
+            value: MULTIUSER_MODE
+        - column:
+            name: name
+            value: Многопользовательский режим
+        - column:
+            name: value
+            value: 'NO'
+        tableName: global_settings
+    - insert:
+        columns:
+        - column:
+            name: id
+            valueNumeric: 2
+        - column:
+            name: code
+            value: POST_PREMODERATION
+        - column:
+            name: name
+            value: Премодерация постов
+        - column:
+            name: value
+            value: 'NO'
+        tableName: global_settings
+    - insert:
+        columns:
+        - column:
+            name: id
+            valueNumeric: 3
+        - column:
+            name: code
+            value: STATISTICS_IS_PUBLIC
+        - column:
+            name: name
+            value: Показывать всем статистику блога
+        - column:
+            name: value
+            value: 'NO'
+        tableName: global_settings
+- changeSet:
+    id: 1619362993767-10
+    author: Danila Shafranov (VirtualPower1x)
+    changes:
+    - insert:
+        columns:
+        - column:
+            name: id
+            valueNumeric: 1
+        - column:
+            name: parent_id
+        - column:
+            name: text
+            value: This article seems to be useful. I know Java is wide-spread but
+              I found out you can use Lorem Ipsum as placeholder text :D
+        - column:
+            name: time
+            value: "2021-04-25T12:23:19"
+        - column:
+            name: post_id
+            valueNumeric: 1
+        - column:
+            name: user_id
+            valueNumeric: 2
+        tableName: post_comments
+    - insert:
+        columns:
+        - column:
+            name: id
+            valueNumeric: 2
+        - column:
+            name: parent_id
+            valueNumeric: 1
+        - column:
+            name: text
+            value: thx, I hope that was an educational comment system test :)
+        - column:
+            name: time
+            value: "2021-04-25T12:28:18"
+        - column:
+            name: post_id
+            valueNumeric: 1
+        - column:
+            name: user_id
+            valueNumeric: 1
+        tableName: post_comments
+    - insert:
+        columns:
+        - column:
+            name: id
+            valueNumeric: 3
+        - column:
+            name: parent_id
+        - column:
+            name: text
+            value: What does the text say? I did't get anything.
+        - column:
+            name: time
+            value: "2021-04-25T12:43:36"
+        - column:
+            name: post_id
+            valueNumeric: 1
+        - column:
+            name: user_id
+            valueNumeric: 3
+        tableName: post_comments
+- changeSet:
+    id: 1619362993767-11
+    author: Danila Shafranov (VirtualPower1x)
+    changes:
+    - insert:
+        columns:
+        - column:
+            name: id
+            valueNumeric: 1
+        - column:
+            name: time
+            value: "2021-04-25T12:29:23"
+        - column:
+            name: value
+            valueNumeric: 1
+        - column:
+            name: post_id
+            valueNumeric: 1
+        - column:
+            name: user_id
+            valueNumeric: 1
+        tableName: post_votes
+    - insert:
+        columns:
+        - column:
+            name: id
+            valueNumeric: 2
+        - column:
+            name: time
+            value: "2021-04-25T12:29:36"
+        - column:
+            name: value
+            valueNumeric: 1
+        - column:
+            name: post_id
+            valueNumeric: 1
+        - column:
+            name: user_id
+            valueNumeric: 2
+        tableName: post_votes
+    - insert:
+        columns:
+        - column:
+            name: id
+            valueNumeric: 4
+        - column:
+            name: time
+            value: "2021-04-25T12:43:48"
+        - column:
+            name: value
+            valueNumeric: -1
+        - column:
+            name: post_id
+            valueNumeric: 1
+        - column:
+            name: user_id
+            valueNumeric: 3
+        tableName: post_votes
+- changeSet:
+    id: 1619362993767-12
+    author: Danila Shafranov (VirtualPower1x)
+    changes:
+    - insert:
+        columns:
+        - column:
+            name: id
+            valueNumeric: 1
+        - column:
+            name: is_active
+            valueNumeric: 1
+        - column:
+            name: moderation_status
+            value: ACCEPTED
+        - column:
+            name: moderator_id
+        - column:
+            name: text
+            value: "Over 9000 devices around the world using Java. \nLorem ipsum dolor\
+              \ sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt\
+              \ ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud\
+              \ exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\
+              \ Duis aute irure dolor in reprehenderit in voluptate velit esse cillum\
+              \ dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat\
+              \ non proident, sunt in culpa qui officia deserunt mollit anim id est\
+              \ laborum."
+        - column:
+            name: time
+            value: "2021-04-25T12:03"
+        - column:
+            name: title
+            value: Java Development article
+        - column:
+            name: view_count
+            valueNumeric: 123
+        - column:
+            name: user_id
+            valueNumeric: 1
+        tableName: posts
+    - insert:
+        columns:
+        - column:
+            name: id
+            valueNumeric: 2
+        - column:
+            name: is_active
+            valueNumeric: 1
+        - column:
+            name: moderation_status
+            value: NEW
+        - column:
+            name: moderator_id
+        - column:
+            name: text
+            value: "Hello, my name is Xyzzy, and now we'll find out the answers for\
+              \ these very important questions: \n- How much wood would a woodchuck\
+              \ chuck if the woodchuck could chuck wood?\n- Will Will Smith smith\
+              \ Will Smith?\n- What two words contains the largest number of letters?\n\
+              ---------------------------------------------------------------------------\n\
+              The answers are:\n- The woodchuck could chuck wood just as much as it\
+              \ could\n- Yes, Will Smith will smith Will Smith\n- Post office"
+        - column:
+            name: time
+            value: "2021-04-25T12:42:35"
+        - column:
+            name: title
+            value: some article
+        - column:
+            name: view_count
+            valueNumeric: 0
+        - column:
+            name: user_id
+            valueNumeric: 2
+        tableName: posts
+- changeSet:
+    id: 1619362993767-13
+    author: Danila Shafranov (VirtualPower1x)
+    changes:
+    - insert:
+        columns:
+        - column:
+            name: id
+            valueNumeric: 1
+        - column:
+            name: tag_id
+            valueNumeric: 1
+        - column:
+            name: post_id
+            valueNumeric: 1
+        tableName: tag2post
+    - insert:
+        columns:
+        - column:
+            name: id
+            valueNumeric: 2
+        - column:
+            name: tag_id
+            valueNumeric: 2
+        - column:
+            name: post_id
+            valueNumeric: 1
+        tableName: tag2post
+- changeSet:
+    id: 1619362993767-14
+    author: Danila Shafranov (VirtualPower1x)
+    changes:
+    - insert:
+        columns:
+        - column:
+            name: id
+            valueNumeric: 1
+        - column:
+            name: name
+            value: java
+        tableName: tags
+    - insert:
+        columns:
+        - column:
+            name: id
+            valueNumeric: 2
+        - column:
+            name: name
+            value: development
+        tableName: tags
+- changeSet:
+    id: 1619362993767-15
+    author: Danila Shafranov (VirtualPower1x)
+    changes:
+    - insert:
+        columns:
+        - column:
+            name: id
+            valueNumeric: 1
+        - column:
+            name: code
+        - column:
+            name: email
+            value: noob.online@yandex.ru
+        - column:
+            name: is_moderator
+            valueNumeric: 1
+        - column:
+            name: name
+            value: VirtialPower1x
+        - column:
+            name: password
+            value: bc11f06afb9b27070673471a23ecc6a9
+        - column:
+            name: photo
+        - column:
+            name: reg_time
+            value: "2021-04-25T12:00:01"
+        tableName: users
+    - insert:
+        columns:
+        - column:
+            name: id
+            valueNumeric: 2
+        - column:
+            name: code
+        - column:
+            name: email
+            value: xyzzy@xyzzy.com
+        - column:
+            name: is_moderator
+            valueNumeric: 0
+        - column:
+            name: name
+            value: Xyzzy
+        - column:
+            name: password
+            value: bc11f06afb9b27070673471a23ecc6a9
+        - column:
+            name: photo
+        - column:
+            name: reg_time
+            value: "2021-04-25T12:22:31"
+        tableName: users
+    - insert:
+        columns:
+        - column:
+            name: id
+            valueNumeric: 3
+        - column:
+            name: code
+        - column:
+            name: email
+            value: foobar@foobar.com
+        - column:
+            name: is_moderator
+            valueNumeric: 0
+        - column:
+            name: name
+            value: Foobar
+        - column:
+            name: password
+            value: bc11f06afb9b27070673471a23ecc6a9
+        - column:
+            name: photo
+        - column:
+            name: reg_time
+            value: "2021-04-25T12:31:33"
+        tableName: users
+- changeSet:
+    id: 1619362993767-16
+    author: Danila Shafranov (VirtualPower1x)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: user_id
+        indexName: FK5lidm6cqbc7u4xhqpxm898qme
+        tableName: posts
+- changeSet:
+    id: 1619362993767-17
+    author: Danila Shafranov (VirtualPower1x)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: post_id
+        indexName: FK9jh5u17tmu1g7xnlxa77ilo3u
+        tableName: post_votes
+- changeSet:
+    id: 1619362993767-18
+    author: Danila Shafranov (VirtualPower1x)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: user_id
+        indexName: FK9q09ho9p8fmo6rcysnci8rocc
+        tableName: post_votes
+- changeSet:
+    id: 1619362993767-19
+    author: Danila Shafranov (VirtualPower1x)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: post_id
+        indexName: FKaawaqxjs3br8dw5v90w7uu514
+        tableName: post_comments
+- changeSet:
+    id: 1619362993767-20
+    author: Danila Shafranov (VirtualPower1x)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: tag_id
+        indexName: FKjou6suf2w810t2u3l96uasw3r
+        tableName: tag2post
+- changeSet:
+    id: 1619362993767-21
+    author: Danila Shafranov (VirtualPower1x)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: post_id
+        indexName: FKpjoedhh4h917xf25el3odq20i
+        tableName: tag2post
+- changeSet:
+    id: 1619362993767-22
+    author: Danila Shafranov (VirtualPower1x)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: user_id
+        indexName: FKsnxoecngu89u3fh4wdrgf0f2g
+        tableName: post_comments
+- changeSet:
+    id: 1619362993767-23
+    author: Danila Shafranov (VirtualPower1x)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: user_id
+        baseTableName: posts
+        constraintName: FK5lidm6cqbc7u4xhqpxm898qme
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: RESTRICT
+        onUpdate: RESTRICT
+        referencedColumnNames: id
+        referencedTableName: users
+        validate: true
+- changeSet:
+    id: 1619362993767-24
+    author: Danila Shafranov (VirtualPower1x)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: post_id
+        baseTableName: post_votes
+        constraintName: FK9jh5u17tmu1g7xnlxa77ilo3u
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: RESTRICT
+        onUpdate: RESTRICT
+        referencedColumnNames: id
+        referencedTableName: posts
+        validate: true
+- changeSet:
+    id: 1619362993767-25
+    author: Danila Shafranov (VirtualPower1x)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: user_id
+        baseTableName: post_votes
+        constraintName: FK9q09ho9p8fmo6rcysnci8rocc
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: RESTRICT
+        onUpdate: RESTRICT
+        referencedColumnNames: id
+        referencedTableName: users
+        validate: true
+- changeSet:
+    id: 1619362993767-26
+    author: Danila Shafranov (VirtualPower1x)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: post_id
+        baseTableName: post_comments
+        constraintName: FKaawaqxjs3br8dw5v90w7uu514
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: RESTRICT
+        onUpdate: RESTRICT
+        referencedColumnNames: id
+        referencedTableName: posts
+        validate: true
+- changeSet:
+    id: 1619362993767-27
+    author: Danila Shafranov (VirtualPower1x)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: tag_id
+        baseTableName: tag2post
+        constraintName: FKjou6suf2w810t2u3l96uasw3r
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: RESTRICT
+        onUpdate: RESTRICT
+        referencedColumnNames: id
+        referencedTableName: tags
+        validate: true
+- changeSet:
+    id: 1619362993767-28
+    author: Danila Shafranov (VirtualPower1x)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: post_id
+        baseTableName: tag2post
+        constraintName: FKpjoedhh4h917xf25el3odq20i
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: RESTRICT
+        onUpdate: RESTRICT
+        referencedColumnNames: id
+        referencedTableName: posts
+        validate: true
+- changeSet:
+    id: 1619362993767-29
+    author: Danila Shafranov (VirtualPower1x)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: user_id
+        baseTableName: post_comments
+        constraintName: FKsnxoecngu89u3fh4wdrgf0f2g
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: RESTRICT
+        onUpdate: RESTRICT
+        referencedColumnNames: id
+        referencedTableName: users
+        validate: true
+

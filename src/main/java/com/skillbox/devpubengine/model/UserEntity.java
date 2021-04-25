@@ -1,7 +1,6 @@
 package com.skillbox.devpubengine.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +29,7 @@ public class UserEntity {
 
     private String code;
 
+    @Column(columnDefinition = "text")
     private String photo;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)

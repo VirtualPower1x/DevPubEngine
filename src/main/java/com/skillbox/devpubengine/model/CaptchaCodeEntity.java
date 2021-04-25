@@ -1,7 +1,6 @@
 package com.skillbox.devpubengine.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
@@ -9,16 +8,15 @@ import java.time.LocalDateTime;
 public class CaptchaCodeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
     private int id;
 
     @Column(nullable = false)
     private LocalDateTime time;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "tinytext", nullable = false)
     private String code;
 
-    @Column(name = "secret_code", nullable = false)
+    @Column(columnDefinition = "tinytext", name = "secret_code", nullable = false)
     private String secretCode;
 
     public CaptchaCodeEntity() {
