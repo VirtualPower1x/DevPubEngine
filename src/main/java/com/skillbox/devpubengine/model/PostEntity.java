@@ -20,7 +20,7 @@ public class PostEntity {
     private ModerationStatus moderationStatus;
 
     @Column(name = "moderator_id")
-    private int moderatorId;
+    private Integer moderatorId;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -86,11 +86,11 @@ public class PostEntity {
         this.moderationStatus = moderationStatus;
     }
 
-    public int getModeratorId() {
+    public Integer getModeratorId() {
         return moderatorId;
     }
 
-    public void setModeratorId(int moderatorId) {
+    public void setModeratorId(Integer moderatorId) {
         this.moderatorId = moderatorId;
     }
 

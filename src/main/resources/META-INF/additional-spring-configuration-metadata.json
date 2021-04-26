@@ -1,0 +1,33 @@
+{
+  "properties": [
+    {
+      "name": "blog.title",
+      "type": "java.lang.String",
+      "description": "Main title for DevPub blog. This and blog.subtitle properties are displayed in title tag of blog's web page."
+    },
+    {
+      "name": "blog.subtitle",
+      "type": "java.lang.String",
+      "description": "Subtitle for DevPub blog. This and blog.title properties are displayed in title tag of blog's web page."
+    },
+    {
+      "name": "blog.phone",
+      "type": "java.lang.String",
+      "description": "Phone number to contact with blog's owner."
+    },
+    {
+      "name": "blog.email",
+      "type": "java.lang.String",
+      "description": "Email to contact with blog's owner."
+    },
+    {
+      "name": "blog.copyright",
+      "type": "java.lang.String",
+      "description": "Blog owner's name."
+    },
+    {
+      "name": "blog.copyrightFrom",
+      "type": "java.lang.String",
+      "description": "The year of blog's deployment."
+    }
+  ] }

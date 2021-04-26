@@ -3,3 +3,10 @@ spring.datasource.username: root
 spring.datasource.password: "zzzzzzzz"
 
 spring.jpa.hibernate.ddl-auto: none
+
+blog.title: "DevPub"
+blog.subtitle: "Рассказы разработчиков"
+blog.phone: "+7 999 111-22-33"
+blog.email: "noob.online@yandex.ru"
+blog.copyright: "Данила Шафранов"
+blog.copyrightFrom: "2021"
