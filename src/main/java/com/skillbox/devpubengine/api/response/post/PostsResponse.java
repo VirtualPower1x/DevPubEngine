@@ -3,11 +3,20 @@ package com.skillbox.devpubengine.api.response.post;
 import java.util.Collections;
 import java.util.List;
 
-public class GetPostsResponse {
+public class PostsResponse {
 
     private int count = 0;
 
     private List<PostData> posts = Collections.emptyList();
+
+    public PostsResponse() {
+
+    }
+
+    public PostsResponse(int count, List<PostData> posts) {
+        this.count = count;
+        this.posts = posts;
+    }
 
     public int getCount() {
         return count;

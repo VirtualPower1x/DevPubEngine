@@ -4,7 +4,9 @@ import com.skillbox.devpubengine.api.response.general.TagWeight;
 import com.skillbox.devpubengine.api.response.general.TagsResponse;
 import com.skillbox.devpubengine.model.TagEntity;
 import com.skillbox.devpubengine.repository.TagRepository;
-import com.skillbox.devpubengine.service.post.GetPostsService;
+import com.skillbox.devpubengine.service.post.PostsService;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.JpaSort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,23 +22,21 @@ public class TagsService {
     }
 
     public TagsResponse getTags (String query) {
-        List<TagEntity> tagList;
-        if (query == null || query.equals("")) {
-            tagList = tagRepository.findAll();
+        if (query == null) {
+            query = "";
         }
-        else {
-            tagList = tagRepository.findAll()
-                    .stream()
-                    .filter(e -> e.getName().startsWith(query))
-                    .collect(Collectors.toList());
-        }
-        tagList.sort((t1, t2) -> Integer.compare(t2.getTag2PostEntities().size(), t1.getTag2PostEntities().size()));
+        final String queryFinal = query;
+        List<TagEntity> tagList = tagRepository
+                .findAll(JpaSort.unsafe(Sort.Direction.DESC, "size(tag2PostEntities)"))
+                .stream()
+                .filter(e -> e.getName().startsWith(queryFinal))
+                .collect(Collectors.toList());
 
         List<TagWeight> tagWeights = new ArrayList<>();
-        double postCount = GetPostsService.getPostsCount();
         if (tagList.isEmpty()) {
             return new TagsResponse(tagWeights);
         }
+        double postCount = PostsService.getPostsCount();
         double maxWeight = tagList.get(0).getTag2PostEntities().size() / postCount;
         for (TagEntity tag : tagList) {
             double weightNotRound = tag.getTag2PostEntities().size() / postCount / maxWeight;

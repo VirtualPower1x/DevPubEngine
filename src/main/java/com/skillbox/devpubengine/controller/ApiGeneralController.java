@@ -1,8 +1,10 @@
 package com.skillbox.devpubengine.controller;
 
+import com.skillbox.devpubengine.api.response.general.CalendarResponse;
 import com.skillbox.devpubengine.api.response.general.InitResponse;
 import com.skillbox.devpubengine.api.response.general.SettingsResponse;
 import com.skillbox.devpubengine.api.response.general.TagsResponse;
+import com.skillbox.devpubengine.service.general.CalendarService;
 import com.skillbox.devpubengine.service.general.SettingsService;
 import com.skillbox.devpubengine.service.general.TagsService;
 import org.springframework.http.HttpStatus;
@@ -18,13 +20,16 @@ public class ApiGeneralController {
     private final InitResponse initResponse;
     private final SettingsService settingsService;
     private final TagsService tagsService;
+    private final CalendarService calendarService;
 
     public ApiGeneralController(InitResponse initResponse,
                                 SettingsService settingsService,
-                                TagsService tagsService) {
+                                TagsService tagsService,
+                                CalendarService calendarService) {
         this.initResponse = initResponse;
         this.settingsService = settingsService;
         this.tagsService = tagsService;
+        this.calendarService = calendarService;
     }
 
     @GetMapping("/init")
@@ -42,4 +47,8 @@ public class ApiGeneralController {
         return new ResponseEntity<>(tagsService.getTags(query), HttpStatus.OK);
     }
 
+    @GetMapping("/calendar")
+    public ResponseEntity<CalendarResponse> getCalendar (Integer year) {
+        return new ResponseEntity<>(calendarService.getCalendar(year), HttpStatus.OK);
+    }
 }
