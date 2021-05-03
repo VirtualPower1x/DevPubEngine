@@ -5,6 +5,10 @@ import com.skillbox.devpubengine.api.response.post.PostData;
 import com.skillbox.devpubengine.api.response.post.PostsResponse;
 import com.skillbox.devpubengine.model.PostEntity;
 import com.skillbox.devpubengine.repository.PostRepository;
+import com.skillbox.devpubengine.utils.mapper.PostMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -12,25 +16,28 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class GetPostsByTagService extends PostsService{
-    public GetPostsByTagService(PostRepository postRepository) {
-        super(postRepository);
+public class GetPostsByTagService {
+
+    private final PostRepository postRepository;
+    private final PostMapper postMapper;
+
+    public GetPostsByTagService(PostRepository postRepository, PostMapper postMapper) {
+        this.postRepository = postRepository;
+        this.postMapper = postMapper;
     }
 
     public PostsResponse getPostsByTag (GetPostsByTagRequest request) {
         if (request.getTag().equals("")) {
             return new PostsResponse();
         }
-        List<PostData> posts = getPostRepository()
-                .findAllActivePosts(Sort.by("time").descending())
+        int pageCount = request.getOffset() / request.getLimit();
+        Pageable pageable = PageRequest.of(pageCount, request.getLimit(), Sort.by("time").descending());
+        Page<PostEntity> page = postRepository.findActivePostsByTag(pageable, request.getTag());
+        List<PostData> posts = page
                 .stream()
-                .filter(e -> this.hasTag(e, request.getTag()))
-                .map(this::mapPostData)
+                .map(postMapper::postEntityToPostData)
                 .collect(Collectors.toList());
-        if (posts.size() == 0) {
-            return new PostsResponse();
-        }
-        return completeResponse(request.getOffset(), request.getLimit(), posts);
+        return new PostsResponse((int) page.getTotalElements(), posts);
     }
 
     private boolean hasTag (PostEntity post, String tagName) {

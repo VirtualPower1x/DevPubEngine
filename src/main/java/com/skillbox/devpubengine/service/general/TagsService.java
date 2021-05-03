@@ -4,7 +4,6 @@ import com.skillbox.devpubengine.api.response.general.TagWeight;
 import com.skillbox.devpubengine.api.response.general.TagsResponse;
 import com.skillbox.devpubengine.model.TagEntity;
 import com.skillbox.devpubengine.repository.TagRepository;
-import com.skillbox.devpubengine.service.post.PostsService;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.JpaSort;
 import org.springframework.stereotype.Service;
@@ -15,6 +14,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class TagsService {
+
     private final TagRepository tagRepository;
 
     public TagsService(TagRepository tagRepository) {
@@ -36,10 +36,9 @@ public class TagsService {
         if (tagList.isEmpty()) {
             return new TagsResponse(tagWeights);
         }
-        double postCount = PostsService.getPostsCount();
-        double maxWeight = tagList.get(0).getTag2PostEntities().size() / postCount;
+        double maxWeight = tagList.get(0).getTag2PostEntities().size();
         for (TagEntity tag : tagList) {
-            double weightNotRound = tag.getTag2PostEntities().size() / postCount / maxWeight;
+            double weightNotRound = tag.getTag2PostEntities().size() / maxWeight;
             double weight = Math.round(weightNotRound * 100) / 100.0;
             TagWeight tagWeight = new TagWeight(tag.getName(), weight);
             tagWeights.add(tagWeight);

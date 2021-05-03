@@ -8,7 +8,7 @@
       <jdbc-url>jdbc:mysql://localhost:3306/devpub_db</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
       <driver-properties>
-        <property name="serverTimezone" value="Europe/Samara" />
+        <property name="serverTimezone" value="UTC" />
         <property name="treatUtilDateAsTimestamp" value="TRUE" />
       </driver-properties>
     </data-source>
