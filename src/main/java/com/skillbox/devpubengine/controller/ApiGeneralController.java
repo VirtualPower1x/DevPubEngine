@@ -7,7 +7,6 @@ import com.skillbox.devpubengine.api.response.general.TagsResponse;
 import com.skillbox.devpubengine.service.general.CalendarService;
 import com.skillbox.devpubengine.service.general.SettingsService;
 import com.skillbox.devpubengine.service.general.TagsService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,21 +33,21 @@ public class ApiGeneralController {
 
     @GetMapping("/init")
     public ResponseEntity<InitResponse> init () {
-        return new ResponseEntity<>(initResponse, HttpStatus.OK);
+        return ResponseEntity.ok(initResponse);
     }
 
     @GetMapping("/settings")
     public ResponseEntity<SettingsResponse> getSettings () {
-        return new ResponseEntity<>(settingsService.getSettings(), HttpStatus.OK);
+        return ResponseEntity.ok(settingsService.getSettings());
     }
 
     @GetMapping("/tag")
     public ResponseEntity<TagsResponse> getTags (String query) {
-        return new ResponseEntity<>(tagsService.getTags(query), HttpStatus.OK);
+        return ResponseEntity.ok(tagsService.getTags(query));
     }
 
     @GetMapping("/calendar")
     public ResponseEntity<CalendarResponse> getCalendar (Integer year) {
-        return new ResponseEntity<>(calendarService.getCalendar(year), HttpStatus.OK);
+        return ResponseEntity.ok(calendarService.getCalendar(year));
     }
 }

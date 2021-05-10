@@ -10,3 +10,5 @@ blog.phone: "+7 999 111-22-33"
 blog.email: "noob.online@yandex.ru"
 blog.copyright: "Данила Шафранов"
 blog.copyrightFrom: "2021"
+
+blog.config.captchaSavePeriod : 3600

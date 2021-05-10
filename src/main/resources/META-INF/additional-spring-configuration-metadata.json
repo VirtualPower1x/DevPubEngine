@@ -29,5 +29,10 @@
       "name": "blog.copyrightFrom",
       "type": "java.lang.String",
       "description": "The year of blog's deployment."
+    },
+    {
+      "name": "blog.config.captchaSavePeriod",
+      "type": "java.lang.Integer",
+      "description": "The amount of time for which captcha keys are being saved. Outdated captcha keys will be deleted after this period."
     }
   ] }

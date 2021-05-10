@@ -35,24 +35,22 @@ public class ApiPostController {
 
     @GetMapping("")
     public ResponseEntity<PostsResponse> getPosts (GetPostsRequest getPostsRequest) {
-        return new ResponseEntity<>(getPostsService.getPosts(getPostsRequest), HttpStatus.OK);
+        return ResponseEntity.ok(getPostsService.getPosts(getPostsRequest));
     }
 
     @GetMapping("/search")
     public ResponseEntity<PostsResponse> searchPosts (SearchPostsRequest searchPostsRequest) {
-        return new ResponseEntity<>(searchPostsService.searchPosts(searchPostsRequest), HttpStatus.OK);
+        return ResponseEntity.ok(searchPostsService.searchPosts(searchPostsRequest));
     }
 
     @GetMapping("/byDate")
     public ResponseEntity<PostsResponse> getPostsByDate (GetPostsByDateRequest getPostsByDateRequest) {
-        return new ResponseEntity<>(getPostsByDateService.getPostsByDate(getPostsByDateRequest),
-                HttpStatus.OK);
+        return ResponseEntity.ok(getPostsByDateService.getPostsByDate(getPostsByDateRequest));
     }
 
     @GetMapping("/byTag")
     public ResponseEntity<PostsResponse> getPostsByTag (GetPostsByTagRequest getPostsByTagRequest) {
-        return new ResponseEntity<>(getPostsByTagService.getPostsByTag(getPostsByTagRequest),
-                HttpStatus.OK);
+        return ResponseEntity.ok(getPostsByTagService.getPostsByTag(getPostsByTagRequest));
     }
 
     @GetMapping("/{id}")
@@ -61,6 +59,6 @@ public class ApiPostController {
         if (response == null) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return ResponseEntity.ok(response);
     }
 }
