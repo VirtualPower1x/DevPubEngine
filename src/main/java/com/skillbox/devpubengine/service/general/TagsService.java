@@ -7,6 +7,7 @@ import com.skillbox.devpubengine.repository.TagRepository;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.JpaSort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,7 @@ public class TagsService {
         this.tagRepository = tagRepository;
     }
 
+    @Transactional(readOnly = true)
     public TagsResponse getTags (String query) {
         if (query == null) {
             query = "";

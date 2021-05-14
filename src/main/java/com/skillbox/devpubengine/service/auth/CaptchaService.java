@@ -7,11 +7,13 @@ import com.skillbox.devpubengine.model.CaptchaCodeEntity;
 import com.skillbox.devpubengine.repository.CaptchaCodeRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.util.Base64;
+import java.util.UUID;
 
 @Service
 public class CaptchaService {
@@ -25,6 +27,7 @@ public class CaptchaService {
         this.captchaCodeRepository = captchaCodeRepository;
     }
 
+    @Transactional
     public CaptchaResponse getCaptcha() {
         Cage cage = new GCage();
         LocalDateTime currentTimeUtc = LocalDateTime.now()
@@ -32,12 +35,13 @@ public class CaptchaService {
                 .withZoneSameInstant(ZoneOffset.UTC)
                 .toLocalDateTime();
         String code = generateCaptchaCode();
-        String secret = generateSecretCode();
+        String secret = UUID.randomUUID().toString();
         String image = "data:image/png;base64, " + Base64.getEncoder().encodeToString(cage.draw(code));
         captchaCodeRepository.save(new CaptchaCodeEntity(currentTimeUtc, code, secret));
         return new CaptchaResponse(secret, image);
     }
 
+    @Transactional
     public void deleteOutdatedCaptcha() {
         LocalDateTime dateTimeRange = LocalDateTime.now()
                 .atZone(ZoneId.systemDefault())
@@ -51,15 +55,6 @@ public class CaptchaService {
         final char[] symbols = "0123456789abcdefghijklmnopqrstuvwxyz".toCharArray();
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < 6; i++) {
-            result.append(symbols[(int) Math.round(Math.random() * (symbols.length - 1))]);
-        }
-        return result.toString();
-    }
-
-    private String generateSecretCode () {
-        final char[] symbols = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < 32; i++) {
             result.append(symbols[(int) Math.round(Math.random() * (symbols.length - 1))]);
         }
         return result.toString();

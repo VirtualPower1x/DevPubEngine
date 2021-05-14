@@ -28,7 +28,7 @@ public interface PostMapper {
 
     @Mapping(source = "id", target = "id")
     @Mapping(source = "time", target = "timestamp")
-    @Mapping(expression = "java(post.getIsActive() == 1)", target = "active")
+    @Mapping(source = "isActive", target = "active")
     @Mapping(source = "user", target = "user", qualifiedByName = "user")
     @Mapping(source = "title", target = "title")
     @Mapping(source = "text", target = "text")

@@ -1,6 +1,8 @@
 package com.skillbox.devpubengine.repository;
 
+import com.skillbox.devpubengine.model.ModerationStatus;
 import com.skillbox.devpubengine.model.PostEntity;
+import com.skillbox.devpubengine.model.UserEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,7 +17,7 @@ public interface PostRepository extends JpaRepository<PostEntity, Integer> {
 
     @Query("SELECT p " +
             "FROM PostEntity p " +
-            "WHERE p.isActive = 1 " +
+            "WHERE p.isActive = true " +
             "AND p.moderationStatus = 'ACCEPTED' " +
             "AND p.time <= CURRENT_DATE ")
     Page<PostEntity> findAllActivePosts(Pageable pageable);
@@ -23,7 +25,7 @@ public interface PostRepository extends JpaRepository<PostEntity, Integer> {
     @Query(value = "SELECT p " +
             "FROM PostEntity p " +
             "LEFT JOIN p.postVoteEntities pv ON pv.value = 1 " +
-            "WHERE p.isActive = 1 " +
+            "WHERE p.isActive = true " +
             "AND p.moderationStatus = 'ACCEPTED' " +
             "AND p.time <= CURRENT_DATE " +
             "GROUP BY p.id " +
@@ -32,7 +34,7 @@ public interface PostRepository extends JpaRepository<PostEntity, Integer> {
 
     @Query(value = "SELECT p " +
             "FROM PostEntity p " +
-            "WHERE p.isActive = 1 " +
+            "WHERE p.isActive = true " +
             "AND p.moderationStatus = 'ACCEPTED' " +
             "AND p.time <= CURRENT_DATE " +
             "AND (p.title LIKE :query OR p.text LIKE :query)")
@@ -40,7 +42,7 @@ public interface PostRepository extends JpaRepository<PostEntity, Integer> {
 
     @Query("SELECT p " +
             "FROM PostEntity p " +
-            "WHERE p.isActive = 1 " +
+            "WHERE p.isActive = true " +
             "AND p.moderationStatus = 'ACCEPTED' " +
             "AND p.time <= CURRENT_DATE " +
             "AND p.time BETWEEN :timeAfter AND :timeBefore")
@@ -51,9 +53,16 @@ public interface PostRepository extends JpaRepository<PostEntity, Integer> {
     @Query(value = "SELECT p " +
             "FROM PostEntity p " +
             "LEFT JOIN p.tag2PostEntities ttp " +
-            "WHERE p.isActive = 1 " +
+            "WHERE p.isActive = true " +
             "AND p.moderationStatus = 'ACCEPTED' " +
             "AND p.time <= CURRENT_DATE " +
             "AND ttp.tag2PostID.tag.name = :tagName")
     Page<PostEntity> findActivePostsByTag(Pageable pageable, @Param("tagName") String tag);
+
+    Page<PostEntity> findAllByUserAndIsActive(Pageable pageable, UserEntity user, boolean isActive);
+
+    Page<PostEntity> findAllByUserAndIsActiveAndModerationStatus(Pageable pageable, UserEntity user, boolean isActive,
+                                                                 ModerationStatus status);
+
+    int countAllByModerationStatus(ModerationStatus status);
 }

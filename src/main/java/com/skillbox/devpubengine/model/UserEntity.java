@@ -12,8 +12,8 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "is_moderator", nullable = false)
-    private byte isModerator;
+    @Column(name = "is_moderator", columnDefinition = "tinyint", nullable = false)
+    private boolean isModerator;
 
     @Column(name = "reg_time", nullable = false)
     private LocalDateTime regTime;
@@ -45,7 +45,7 @@ public class UserEntity {
 
     }
 
-    public UserEntity(byte isModerator, LocalDateTime regTime, String name, String email, String password) {
+    public UserEntity(boolean isModerator, LocalDateTime regTime, String name, String email, String password) {
         this.isModerator = isModerator;
         this.regTime = regTime;
         this.name = name;
@@ -61,11 +61,11 @@ public class UserEntity {
         this.id = id;
     }
 
-    public byte getIsModerator() {
+    public boolean getIsModerator() {
         return isModerator;
     }
 
-    public void setIsModerator(byte isModerator) {
+    public void setIsModerator(boolean isModerator) {
         this.isModerator = isModerator;
     }
 
@@ -115,6 +115,10 @@ public class UserEntity {
 
     public void setPhoto(String photo) {
         this.photo = photo;
+    }
+
+    public Role getRole(){
+        return this.isModerator ? Role.MODERATOR : Role.USER;
     }
 
     public List<PostEntity> getPostEntities() {

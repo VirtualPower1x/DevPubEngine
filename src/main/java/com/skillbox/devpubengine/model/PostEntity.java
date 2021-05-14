@@ -12,8 +12,8 @@ public class PostEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "is_active", nullable = false)
-    private byte isActive;
+    @Column(name = "is_active", columnDefinition = "tinyint", nullable = false)
+    private boolean isActive;
 
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "ENUM('NEW', 'ACCEPTED', 'DECLINED')", name = "moderation_status", nullable = false)
@@ -51,7 +51,7 @@ public class PostEntity {
 
     }
 
-    public PostEntity(byte isActive, ModerationStatus moderationStatus, UserEntity user, LocalDateTime time,
+    public PostEntity(boolean isActive, ModerationStatus moderationStatus, UserEntity user, LocalDateTime time,
                       String title, String text, int viewCount) {
         this.isActive = isActive;
         this.moderationStatus = moderationStatus;
@@ -70,11 +70,11 @@ public class PostEntity {
         this.id = id;
     }
 
-    public byte getIsActive() {
+    public boolean getIsActive() {
         return isActive;
     }
 
-    public void setIsActive(byte isActive) {
+    public void setIsActive(boolean isActive) {
         this.isActive = isActive;
     }
 

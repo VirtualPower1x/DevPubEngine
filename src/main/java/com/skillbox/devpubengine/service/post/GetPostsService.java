@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.JpaSort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,6 +28,7 @@ public class GetPostsService{
         this.postMapper = postMapper;
     }
 
+    @Transactional(readOnly = true)
     public PostsResponse getPosts (GetPostsRequest request) {
         if (postRepository.count() == 0) {
             return new PostsResponse();

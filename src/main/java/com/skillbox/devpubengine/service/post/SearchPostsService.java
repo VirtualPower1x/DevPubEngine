@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,6 +27,7 @@ public class SearchPostsService {
         this.postMapper = postMapper;
     }
 
+    @Transactional(readOnly = true)
     public PostsResponse searchPosts (SearchPostsRequest request) {
         String query = "%" + request.getQuery().trim() + "%";
         int pageCount = request.getOffset() / request.getLimit();

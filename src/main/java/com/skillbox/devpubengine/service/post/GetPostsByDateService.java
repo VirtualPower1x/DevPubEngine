@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.format.datetime.standard.DateTimeFormatterFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -30,6 +31,7 @@ public class GetPostsByDateService{
         this.postMapper = postMapper;
     }
 
+    @Transactional(readOnly = true)
     public PostsResponse getPostsByDate (GetPostsByDateRequest request) {
         if (request.getDate().equals("")) {
             return new PostsResponse();

@@ -5,6 +5,7 @@ import com.skillbox.devpubengine.model.ModerationStatus;
 import com.skillbox.devpubengine.model.PostEntity;
 import com.skillbox.devpubengine.repository.PostRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -23,6 +24,7 @@ public class CalendarService {
         this.postRepository = postRepository;
     }
 
+    @Transactional(readOnly = true)
     public CalendarResponse getCalendar (Integer year) {
         if (year == null) {
             year = LocalDateTime.now().getYear();
@@ -30,7 +32,7 @@ public class CalendarService {
         final int yearValue = year;
         List<PostEntity> posts = postRepository.findAll()
                 .stream()
-                .filter(e -> e.getIsActive() == 1 &&
+                .filter(e -> e.getIsActive() &&
                         e.getModerationStatus() == ModerationStatus.ACCEPTED &&
                         !e.getTime().isAfter(LocalDateTime.now()))
                 .collect(Collectors.toList());

@@ -5,24 +5,20 @@ import com.skillbox.devpubengine.api.response.auth.RegisterResponse;
 import com.skillbox.devpubengine.model.UserEntity;
 import com.skillbox.devpubengine.repository.CaptchaCodeRepository;
 import com.skillbox.devpubengine.repository.UserRepository;
+import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.xml.bind.DatatypeConverter;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 @Service
 public class RegisterService {
 
     private final CaptchaCodeRepository captchaCodeRepository;
-
     private final UserRepository userRepository;
 
     public RegisterService(CaptchaCodeRepository captchaCodeRepository, UserRepository userRepository) {
@@ -30,6 +26,7 @@ public class RegisterService {
         this.userRepository = userRepository;
     }
 
+    @Transactional
     public RegisterResponse register (RegisterRequest request) {
         Map<String, String> errors = verifyUserData(request);
         if (!errors.isEmpty()) {
@@ -40,9 +37,10 @@ public class RegisterService {
                 .atZone(ZoneId.systemDefault())
                 .withZoneSameInstant(ZoneOffset.UTC)
                 .toLocalDateTime();
-        String passwordHash = toMD5Hash(request.getPassword());
+        SCryptPasswordEncoder encoder = new SCryptPasswordEncoder();
+        String passwordHash = encoder.encode(request.getPassword());
         UserEntity user = new UserEntity(
-                (byte) 0,
+                false,
                 currentTimeUtc,
                 request.getName(),
                 request.getEmail(),
@@ -80,19 +78,5 @@ public class RegisterService {
             errors.put("captcha", STR_BAD_CAPTCHA);
         }
         return errors;
-    }
-
-    private String toMD5Hash (String source) {
-        String hash = "";
-        try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            md.update(source.getBytes(StandardCharsets.UTF_8));
-            byte[] digest = md.digest();
-            hash = DatatypeConverter.printHexBinary(digest).toLowerCase(Locale.ROOT);
-        }
-        catch (NoSuchAlgorithmException nsae) {
-            nsae.printStackTrace();
-        }
-        return hash;
     }
 }

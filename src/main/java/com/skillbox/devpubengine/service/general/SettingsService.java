@@ -4,6 +4,7 @@ import com.skillbox.devpubengine.api.response.general.SettingsResponse;
 import com.skillbox.devpubengine.model.GlobalSettingsEntity;
 import com.skillbox.devpubengine.repository.GlobalSettingsRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class SettingsService {
@@ -14,6 +15,7 @@ public class SettingsService {
         this.settingsRepository = settingsRepository;
     }
 
+    @Transactional(readOnly = true)
     public SettingsResponse getSettings() {
         SettingsResponse response = new SettingsResponse();
         for (GlobalSettingsEntity e : settingsRepository.findAll()) {

@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,6 +27,7 @@ public class GetPostsByTagService {
         this.postMapper = postMapper;
     }
 
+    @Transactional(readOnly = true)
     public PostsResponse getPostsByTag (GetPostsByTagRequest request) {
         if (request.getTag().equals("")) {
             return new PostsResponse();
@@ -38,11 +40,5 @@ public class GetPostsByTagService {
                 .map(postMapper::postEntityToPostData)
                 .collect(Collectors.toList());
         return new PostsResponse((int) page.getTotalElements(), posts);
-    }
-
-    private boolean hasTag (PostEntity post, String tagName) {
-        return post.getTag2PostEntities()
-                .stream()
-                .anyMatch(e -> e.getTag2PostID().getTag().getName().equals(tagName));
     }
 }
