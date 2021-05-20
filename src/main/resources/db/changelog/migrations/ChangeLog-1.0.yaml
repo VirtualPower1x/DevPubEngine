@@ -1,6 +1,6 @@
 databaseChangeLog:
 - changeSet:
-    id: 1619362993767-1
+    id: 1621282319996-1
     author: Danila Shafranov (VirtualPower1x)
     changes:
     - createTable:
@@ -29,7 +29,7 @@ databaseChangeLog:
             type: datetime
         tableName: captcha_codes
 - changeSet:
-    id: 1619362993767-2
+    id: 1621282319996-2
     author: Danila Shafranov (VirtualPower1x)
     changes:
     - createTable:
@@ -58,7 +58,7 @@ databaseChangeLog:
             type: VARCHAR(255)
         tableName: global_settings
 - changeSet:
-    id: 1619362993767-3
+    id: 1621282319996-3
     author: Danila Shafranov (VirtualPower1x)
     changes:
     - createTable:
@@ -95,7 +95,7 @@ databaseChangeLog:
             type: INT
         tableName: post_comments
 - changeSet:
-    id: 1619362993767-4
+    id: 1621282319996-4
     author: Danila Shafranov (VirtualPower1x)
     changes:
     - createTable:
@@ -129,7 +129,7 @@ databaseChangeLog:
             type: INT
         tableName: post_votes
 - changeSet:
-    id: 1619362993767-5
+    id: 1621282319996-5
     author: Danila Shafranov (VirtualPower1x)
     changes:
     - createTable:
@@ -181,7 +181,7 @@ databaseChangeLog:
             type: INT
         tableName: posts
 - changeSet:
-    id: 1619362993767-6
+    id: 1621282319996-6
     author: Danila Shafranov (VirtualPower1x)
     changes:
     - createTable:
@@ -207,7 +207,7 @@ databaseChangeLog:
             type: INT
         tableName: tag2post
 - changeSet:
-    id: 1619362993767-7
+    id: 1621282319996-7
     author: Danila Shafranov (VirtualPower1x)
     changes:
     - createTable:
@@ -222,11 +222,12 @@ databaseChangeLog:
         - column:
             constraints:
               nullable: false
+              unique: true
             name: name
             type: VARCHAR(255)
         tableName: tags
 - changeSet:
-    id: 1619362993767-8
+    id: 1621282319996-8
     author: Danila Shafranov (VirtualPower1x)
     changes:
     - createTable:
@@ -271,7 +272,26 @@ databaseChangeLog:
             type: datetime
         tableName: users
 - changeSet:
-    id: 1619362993767-9
+    id: 1621282319996-9
+    author: Danila Shafranov (VirtualPower1x)
+    changes:
+    - insert:
+        columns:
+        - column:
+            name: id
+            valueNumeric: 30
+        - column:
+            name: code
+            value: meqwdg
+        - column:
+            name: secret_code
+            value: f3db920e-da8e-4993-b6f1-7a47290e4acf
+        - column:
+            name: time
+            value: "2021-05-17T18:34:50"
+        tableName: captcha_codes
+- changeSet:
+    id: 1621282319996-10
     author: Danila Shafranov (VirtualPower1x)
     changes:
     - insert:
@@ -287,7 +307,7 @@ databaseChangeLog:
             value: Многопользовательский режим
         - column:
             name: value
-            value: 'NO'
+            value: 'YES'
         tableName: global_settings
     - insert:
         columns:
@@ -320,7 +340,7 @@ databaseChangeLog:
             value: 'NO'
         tableName: global_settings
 - changeSet:
-    id: 1619362993767-10
+    id: 1621282319996-11
     author: Danila Shafranov (VirtualPower1x)
     changes:
     - insert:
@@ -386,7 +406,7 @@ databaseChangeLog:
             valueNumeric: 3
         tableName: post_comments
 - changeSet:
-    id: 1619362993767-11
+    id: 1621282319996-12
     author: Danila Shafranov (VirtualPower1x)
     changes:
     - insert:
@@ -443,8 +463,26 @@ databaseChangeLog:
             name: user_id
             valueNumeric: 3
         tableName: post_votes
+    - insert:
+        columns:
+        - column:
+            name: id
+            valueNumeric: 5
+        - column:
+            name: time
+            value: "2021-04-27T23:03:07"
+        - column:
+            name: value
+            valueNumeric: 1
+        - column:
+            name: post_id
+            valueNumeric: 3
+        - column:
+            name: user_id
+            valueNumeric: 2
+        tableName: post_votes
 - changeSet:
-    id: 1619362993767-12
+    id: 1621282319996-13
     author: Danila Shafranov (VirtualPower1x)
     changes:
     - insert:
@@ -462,23 +500,23 @@ databaseChangeLog:
             name: moderator_id
         - column:
             name: text
-            value: "Over 9000 devices around the world using Java. \nLorem ipsum dolor\
-              \ sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt\
-              \ ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud\
-              \ exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\
-              \ Duis aute irure dolor in reprehenderit in voluptate velit esse cillum\
-              \ dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat\
-              \ non proident, sunt in culpa qui officia deserunt mollit anim id est\
-              \ laborum."
+            value: "Over 9000 devices use Java. Lorem ipsum dolor sit amet, consectetur\
+              \ adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore\
+              \ magna aliqua. \n                            Ut enim ad minim veniam,\
+              \ quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\
+              \ consequat. Duis aute irure dolor in reprehenderit in voluptate velit\
+              \ esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat\
+              \ cupidatat non proident, sunt in culpa qui officia deserunt mollit\
+              \ anim id est laborum."
         - column:
             name: time
-            value: "2021-04-25T12:03"
+            value: "2021-05-17T18:52:35"
         - column:
             name: title
-            value: Java Development article
+            value: About Java
         - column:
             name: view_count
-            valueNumeric: 123
+            valueNumeric: 150
         - column:
             name: user_id
             valueNumeric: 1
@@ -513,13 +551,468 @@ databaseChangeLog:
             value: some article
         - column:
             name: view_count
-            valueNumeric: 0
+            valueNumeric: 1
         - column:
             name: user_id
             valueNumeric: 2
         tableName: posts
+    - insert:
+        columns:
+        - column:
+            name: id
+            valueNumeric: 3
+        - column:
+            name: is_active
+            valueNumeric: 1
+        - column:
+            name: moderation_status
+            value: ACCEPTED
+        - column:
+            name: moderator_id
+        - column:
+            name: text
+            value: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do\
+              \ eiusmod tempor incididunt ut labore et dolore magna aliqua. \nUt enim\
+              \ ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut\
+              \ aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit\
+              \ in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur\
+              \ sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt\
+              \ mollit anim id est laborum."
+        - column:
+            name: time
+            value: "2021-04-25T23:35:17"
+        - column:
+            name: title
+            value: Hibernate DB handling
+        - column:
+            name: view_count
+            valueNumeric: 22
+        - column:
+            name: user_id
+            valueNumeric: 1
+        tableName: posts
+    - insert:
+        columns:
+        - column:
+            name: id
+            valueNumeric: 4
+        - column:
+            name: is_active
+            valueNumeric: 1
+        - column:
+            name: moderation_status
+            value: ACCEPTED
+        - column:
+            name: moderator_id
+        - column:
+            name: text
+            value: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do\
+              \ eiusmod tempor incididunt ut labore et dolore magna aliqua. \nUt enim\
+              \ ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut\
+              \ aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit\
+              \ in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur\
+              \ sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt\
+              \ mollit anim id est laborum."
+        - column:
+            name: time
+            value: "2021-04-25T23:35:17"
+        - column:
+            name: title
+            value: Hibernate DB handling
+        - column:
+            name: view_count
+            valueNumeric: 22
+        - column:
+            name: user_id
+            valueNumeric: 1
+        tableName: posts
+    - insert:
+        columns:
+        - column:
+            name: id
+            valueNumeric: 5
+        - column:
+            name: is_active
+            valueNumeric: 1
+        - column:
+            name: moderation_status
+            value: ACCEPTED
+        - column:
+            name: moderator_id
+        - column:
+            name: text
+            value: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do\
+              \ eiusmod tempor incididunt ut labore et dolore magna aliqua. \nUt enim\
+              \ ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut\
+              \ aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit\
+              \ in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur\
+              \ sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt\
+              \ mollit anim id est laborum."
+        - column:
+            name: time
+            value: "2021-04-25T23:49:33"
+        - column:
+            name: title
+            value: Swing UI desktop apps
+        - column:
+            name: view_count
+            valueNumeric: 11
+        - column:
+            name: user_id
+            valueNumeric: 1
+        tableName: posts
+    - insert:
+        columns:
+        - column:
+            name: id
+            valueNumeric: 6
+        - column:
+            name: is_active
+            valueNumeric: 1
+        - column:
+            name: moderation_status
+            value: ACCEPTED
+        - column:
+            name: moderator_id
+        - column:
+            name: text
+            value: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do\
+              \ eiusmod tempor incididunt ut labore et dolore magna aliqua. \nUt enim\
+              \ ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut\
+              \ aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit\
+              \ in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur\
+              \ sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt\
+              \ mollit anim id est laborum."
+        - column:
+            name: time
+            value: "2021-04-27T18:56:01"
+        - column:
+            name: title
+            value: xyzzy1
+        - column:
+            name: view_count
+            valueNumeric: 1
+        - column:
+            name: user_id
+            valueNumeric: 1
+        tableName: posts
+    - insert:
+        columns:
+        - column:
+            name: id
+            valueNumeric: 7
+        - column:
+            name: is_active
+            valueNumeric: 1
+        - column:
+            name: moderation_status
+            value: ACCEPTED
+        - column:
+            name: moderator_id
+        - column:
+            name: text
+            value: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do\
+              \ eiusmod tempor incididunt ut labore et dolore magna aliqua. \nUt enim\
+              \ ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut\
+              \ aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit\
+              \ in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur\
+              \ sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt\
+              \ mollit anim id est laborum."
+        - column:
+            name: time
+            value: "2021-04-27T18:57:01"
+        - column:
+            name: title
+            value: xyzzy2
+        - column:
+            name: view_count
+            valueNumeric: 0
+        - column:
+            name: user_id
+            valueNumeric: 1
+        tableName: posts
+    - insert:
+        columns:
+        - column:
+            name: id
+            valueNumeric: 8
+        - column:
+            name: is_active
+            valueNumeric: 1
+        - column:
+            name: moderation_status
+            value: ACCEPTED
+        - column:
+            name: moderator_id
+        - column:
+            name: text
+            value: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do\
+              \ eiusmod tempor incididunt ut labore et dolore magna aliqua. \nUt enim\
+              \ ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut\
+              \ aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit\
+              \ in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur\
+              \ sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt\
+              \ mollit anim id est laborum."
+        - column:
+            name: time
+            value: "2021-04-27T18:59:01"
+        - column:
+            name: title
+            value: xyzzy3
+        - column:
+            name: view_count
+            valueNumeric: 0
+        - column:
+            name: user_id
+            valueNumeric: 1
+        tableName: posts
+    - insert:
+        columns:
+        - column:
+            name: id
+            valueNumeric: 9
+        - column:
+            name: is_active
+            valueNumeric: 1
+        - column:
+            name: moderation_status
+            value: ACCEPTED
+        - column:
+            name: moderator_id
+        - column:
+            name: text
+            value: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do\
+              \ eiusmod tempor incididunt ut labore et dolore magna aliqua. \nUt enim\
+              \ ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut\
+              \ aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit\
+              \ in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur\
+              \ sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt\
+              \ mollit anim id est laborum."
+        - column:
+            name: time
+            value: "2021-04-27T19:00:01"
+        - column:
+            name: title
+            value: xyzzy4
+        - column:
+            name: view_count
+            valueNumeric: 0
+        - column:
+            name: user_id
+            valueNumeric: 1
+        tableName: posts
+    - insert:
+        columns:
+        - column:
+            name: id
+            valueNumeric: 10
+        - column:
+            name: is_active
+            valueNumeric: 1
+        - column:
+            name: moderation_status
+            value: ACCEPTED
+        - column:
+            name: moderator_id
+        - column:
+            name: text
+            value: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do\
+              \ eiusmod tempor incididunt ut labore et dolore magna aliqua. \nUt enim\
+              \ ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut\
+              \ aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit\
+              \ in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur\
+              \ sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt\
+              \ mollit anim id est laborum."
+        - column:
+            name: time
+            value: "2021-04-27T19:02:01"
+        - column:
+            name: title
+            value: xyzzy5
+        - column:
+            name: view_count
+            valueNumeric: 0
+        - column:
+            name: user_id
+            valueNumeric: 1
+        tableName: posts
+    - insert:
+        columns:
+        - column:
+            name: id
+            valueNumeric: 11
+        - column:
+            name: is_active
+            valueNumeric: 1
+        - column:
+            name: moderation_status
+            value: ACCEPTED
+        - column:
+            name: moderator_id
+        - column:
+            name: text
+            value: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do\
+              \ eiusmod tempor incididunt ut labore et dolore magna aliqua. \nUt enim\
+              \ ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut\
+              \ aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit\
+              \ in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur\
+              \ sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt\
+              \ mollit anim id est laborum."
+        - column:
+            name: time
+            value: "2021-04-27T19:03:01"
+        - column:
+            name: title
+            value: xyzzy6
+        - column:
+            name: view_count
+            valueNumeric: 0
+        - column:
+            name: user_id
+            valueNumeric: 1
+        tableName: posts
+    - insert:
+        columns:
+        - column:
+            name: id
+            valueNumeric: 12
+        - column:
+            name: is_active
+            valueNumeric: 1
+        - column:
+            name: moderation_status
+            value: ACCEPTED
+        - column:
+            name: moderator_id
+        - column:
+            name: text
+            value: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do\
+              \ eiusmod tempor incididunt ut labore et dolore magna aliqua. \nUt enim\
+              \ ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut\
+              \ aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit\
+              \ in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur\
+              \ sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt\
+              \ mollit anim id est laborum."
+        - column:
+            name: time
+            value: "2021-04-27T19:04:01"
+        - column:
+            name: title
+            value: xyzzy7
+        - column:
+            name: view_count
+            valueNumeric: 0
+        - column:
+            name: user_id
+            valueNumeric: 1
+        tableName: posts
+    - insert:
+        columns:
+        - column:
+            name: id
+            valueNumeric: 13
+        - column:
+            name: is_active
+            valueNumeric: 1
+        - column:
+            name: moderation_status
+            value: ACCEPTED
+        - column:
+            name: moderator_id
+        - column:
+            name: text
+            value: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do\
+              \ eiusmod tempor incididunt ut labore et dolore magna aliqua. \nUt enim\
+              \ ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut\
+              \ aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit\
+              \ in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur\
+              \ sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt\
+              \ mollit anim id est laborum."
+        - column:
+            name: time
+            value: "2021-04-27T19:05:01"
+        - column:
+            name: title
+            value: xyzzy8
+        - column:
+            name: view_count
+            valueNumeric: 7
+        - column:
+            name: user_id
+            valueNumeric: 1
+        tableName: posts
+    - insert:
+        columns:
+        - column:
+            name: id
+            valueNumeric: 14
+        - column:
+            name: is_active
+            valueNumeric: 1
+        - column:
+            name: moderation_status
+            value: NEW
+        - column:
+            name: moderator_id
+        - column:
+            name: text
+            value: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do\
+              \ eiusmod tempor incididunt ut labore et dolore magna aliqua. \nUt enim\
+              \ ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut\
+              \ aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit\
+              \ in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur\
+              \ sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt\
+              \ mollit anim id est laborum."
+        - column:
+            name: time
+            value: "2021-04-27T19:06:01"
+        - column:
+            name: title
+            value: xyzzy9
+        - column:
+            name: view_count
+            valueNumeric: 0
+        - column:
+            name: user_id
+            valueNumeric: 1
+        tableName: posts
+    - insert:
+        columns:
+        - column:
+            name: id
+            valueNumeric: 15
+        - column:
+            name: is_active
+            valueNumeric: 0
+        - column:
+            name: moderation_status
+            value: ACCEPTED
+        - column:
+            name: moderator_id
+        - column:
+            name: text
+            value: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do\
+              \ eiusmod tempor incididunt ut labore et dolore magna aliqua. \nUt enim\
+              \ ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut\
+              \ aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit\
+              \ in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur\
+              \ sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt\
+              \ mollit anim id est laborum."
+        - column:
+            name: time
+            value: "2021-04-27T19:07:01"
+        - column:
+            name: title
+            value: xyzzy10
+        - column:
+            name: view_count
+            valueNumeric: 0
+        - column:
+            name: user_id
+            valueNumeric: 1
+        tableName: posts
 - changeSet:
-    id: 1619362993767-13
+    id: 1621282319996-14
     author: Danila Shafranov (VirtualPower1x)
     changes:
     - insert:
@@ -538,6 +1031,42 @@ databaseChangeLog:
         columns:
         - column:
             name: id
+            valueNumeric: 3
+        - column:
+            name: tag_id
+            valueNumeric: 1
+        - column:
+            name: post_id
+            valueNumeric: 3
+        tableName: tag2post
+    - insert:
+        columns:
+        - column:
+            name: id
+            valueNumeric: 4
+        - column:
+            name: tag_id
+            valueNumeric: 1
+        - column:
+            name: post_id
+            valueNumeric: 4
+        tableName: tag2post
+    - insert:
+        columns:
+        - column:
+            name: id
+            valueNumeric: 5
+        - column:
+            name: tag_id
+            valueNumeric: 1
+        - column:
+            name: post_id
+            valueNumeric: 5
+        tableName: tag2post
+    - insert:
+        columns:
+        - column:
+            name: id
             valueNumeric: 2
         - column:
             name: tag_id
@@ -546,10 +1075,100 @@ databaseChangeLog:
             name: post_id
             valueNumeric: 1
         tableName: tag2post
+    - insert:
+        columns:
+        - column:
+            name: id
+            valueNumeric: 6
+        - column:
+            name: tag_id
+            valueNumeric: 2
+        - column:
+            name: post_id
+            valueNumeric: 3
+        tableName: tag2post
+    - insert:
+        columns:
+        - column:
+            name: id
+            valueNumeric: 9
+        - column:
+            name: tag_id
+            valueNumeric: 2
+        - column:
+            name: post_id
+            valueNumeric: 4
+        tableName: tag2post
+    - insert:
+        columns:
+        - column:
+            name: id
+            valueNumeric: 7
+        - column:
+            name: tag_id
+            valueNumeric: 3
+        - column:
+            name: post_id
+            valueNumeric: 3
+        tableName: tag2post
+    - insert:
+        columns:
+        - column:
+            name: id
+            valueNumeric: 10
+        - column:
+            name: tag_id
+            valueNumeric: 3
+        - column:
+            name: post_id
+            valueNumeric: 4
+        tableName: tag2post
+    - insert:
+        columns:
+        - column:
+            name: id
+            valueNumeric: 11
+        - column:
+            name: tag_id
+            valueNumeric: 4
+        - column:
+            name: post_id
+            valueNumeric: 4
+        tableName: tag2post
+    - insert:
+        columns:
+        - column:
+            name: id
+            valueNumeric: 8
+        - column:
+            name: tag_id
+            valueNumeric: 5
+        - column:
+            name: post_id
+            valueNumeric: 5
+        tableName: tag2post
 - changeSet:
-    id: 1619362993767-14
+    id: 1621282319996-15
     author: Danila Shafranov (VirtualPower1x)
     changes:
+    - insert:
+        columns:
+        - column:
+            name: id
+            valueNumeric: 2
+        - column:
+            name: name
+            value: development
+        tableName: tags
+    - insert:
+        columns:
+        - column:
+            name: id
+            valueNumeric: 4
+        - column:
+            name: name
+            value: hibernate
+        tableName: tags
     - insert:
         columns:
         - column:
@@ -563,13 +1182,22 @@ databaseChangeLog:
         columns:
         - column:
             name: id
-            valueNumeric: 2
+            valueNumeric: 3
         - column:
             name: name
-            value: development
+            value: spring
+        tableName: tags
+    - insert:
+        columns:
+        - column:
+            name: id
+            valueNumeric: 5
+        - column:
+            name: name
+            value: swing
         tableName: tags
 - changeSet:
-    id: 1619362993767-15
+    id: 1621282319996-16
     author: Danila Shafranov (VirtualPower1x)
     changes:
     - insert:
@@ -590,7 +1218,7 @@ databaseChangeLog:
             value: VirtialPower1x
         - column:
             name: password
-            value: bc11f06afb9b27070673471a23ecc6a9
+            value: $e0801$jKzhPHl3GQdhzOj1jS/mAurh3j+1N6f3dg9AjWj9eNinO/w6FBMfDKxY8vZD9ubKvduvsvdNvGM2A3maN3WdvQ==$Fdoj65mjRxIPpfEoOatYhBFeh2fCjx1ykb0+RlXx5i0=
         - column:
             name: photo
         - column:
@@ -615,7 +1243,7 @@ databaseChangeLog:
             value: Xyzzy
         - column:
             name: password
-            value: bc11f06afb9b27070673471a23ecc6a9
+            value: $e0801$jKzhPHl3GQdhzOj1jS/mAurh3j+1N6f3dg9AjWj9eNinO/w6FBMfDKxY8vZD9ubKvduvsvdNvGM2A3maN3WdvQ==$Fdoj65mjRxIPpfEoOatYhBFeh2fCjx1ykb0+RlXx5i0=
         - column:
             name: photo
         - column:
@@ -640,7 +1268,7 @@ databaseChangeLog:
             value: Foobar
         - column:
             name: password
-            value: bc11f06afb9b27070673471a23ecc6a9
+            value: $e0801$jKzhPHl3GQdhzOj1jS/mAurh3j+1N6f3dg9AjWj9eNinO/w6FBMfDKxY8vZD9ubKvduvsvdNvGM2A3maN3WdvQ==$Fdoj65mjRxIPpfEoOatYhBFeh2fCjx1ykb0+RlXx5i0=
         - column:
             name: photo
         - column:
@@ -648,7 +1276,7 @@ databaseChangeLog:
             value: "2021-04-25T12:31:33"
         tableName: users
 - changeSet:
-    id: 1619362993767-16
+    id: 1621282319996-17
     author: Danila Shafranov (VirtualPower1x)
     changes:
     - createIndex:
@@ -658,7 +1286,7 @@ databaseChangeLog:
         indexName: FK5lidm6cqbc7u4xhqpxm898qme
         tableName: posts
 - changeSet:
-    id: 1619362993767-17
+    id: 1621282319996-18
     author: Danila Shafranov (VirtualPower1x)
     changes:
     - createIndex:
@@ -668,7 +1296,7 @@ databaseChangeLog:
         indexName: FK9jh5u17tmu1g7xnlxa77ilo3u
         tableName: post_votes
 - changeSet:
-    id: 1619362993767-18
+    id: 1621282319996-19
     author: Danila Shafranov (VirtualPower1x)
     changes:
     - createIndex:
@@ -678,7 +1306,7 @@ databaseChangeLog:
         indexName: FK9q09ho9p8fmo6rcysnci8rocc
         tableName: post_votes
 - changeSet:
-    id: 1619362993767-19
+    id: 1621282319996-20
     author: Danila Shafranov (VirtualPower1x)
     changes:
     - createIndex:
@@ -688,7 +1316,7 @@ databaseChangeLog:
         indexName: FKaawaqxjs3br8dw5v90w7uu514
         tableName: post_comments
 - changeSet:
-    id: 1619362993767-20
+    id: 1621282319996-21
     author: Danila Shafranov (VirtualPower1x)
     changes:
     - createIndex:
@@ -698,7 +1326,7 @@ databaseChangeLog:
         indexName: FKjou6suf2w810t2u3l96uasw3r
         tableName: tag2post
 - changeSet:
-    id: 1619362993767-21
+    id: 1621282319996-22
     author: Danila Shafranov (VirtualPower1x)
     changes:
     - createIndex:
@@ -708,7 +1336,7 @@ databaseChangeLog:
         indexName: FKpjoedhh4h917xf25el3odq20i
         tableName: tag2post
 - changeSet:
-    id: 1619362993767-22
+    id: 1621282319996-23
     author: Danila Shafranov (VirtualPower1x)
     changes:
     - createIndex:
@@ -718,7 +1346,7 @@ databaseChangeLog:
         indexName: FKsnxoecngu89u3fh4wdrgf0f2g
         tableName: post_comments
 - changeSet:
-    id: 1619362993767-23
+    id: 1621282319996-24
     author: Danila Shafranov (VirtualPower1x)
     changes:
     - addForeignKeyConstraint:
@@ -733,7 +1361,7 @@ databaseChangeLog:
         referencedTableName: users
         validate: true
 - changeSet:
-    id: 1619362993767-24
+    id: 1621282319996-25
     author: Danila Shafranov (VirtualPower1x)
     changes:
     - addForeignKeyConstraint:
@@ -748,7 +1376,7 @@ databaseChangeLog:
         referencedTableName: posts
         validate: true
 - changeSet:
-    id: 1619362993767-25
+    id: 1621282319996-26
     author: Danila Shafranov (VirtualPower1x)
     changes:
     - addForeignKeyConstraint:
@@ -763,7 +1391,7 @@ databaseChangeLog:
         referencedTableName: users
         validate: true
 - changeSet:
-    id: 1619362993767-26
+    id: 1621282319996-27
     author: Danila Shafranov (VirtualPower1x)
     changes:
     - addForeignKeyConstraint:
@@ -778,7 +1406,7 @@ databaseChangeLog:
         referencedTableName: posts
         validate: true
 - changeSet:
-    id: 1619362993767-27
+    id: 1621282319996-28
     author: Danila Shafranov (VirtualPower1x)
     changes:
     - addForeignKeyConstraint:
@@ -793,7 +1421,7 @@ databaseChangeLog:
         referencedTableName: tags
         validate: true
 - changeSet:
-    id: 1619362993767-28
+    id: 1621282319996-29
     author: Danila Shafranov (VirtualPower1x)
     changes:
     - addForeignKeyConstraint:
@@ -808,7 +1436,7 @@ databaseChangeLog:
         referencedTableName: posts
         validate: true
 - changeSet:
-    id: 1619362993767-29
+    id: 1621282319996-30
     author: Danila Shafranov (VirtualPower1x)
     changes:
     - addForeignKeyConstraint:

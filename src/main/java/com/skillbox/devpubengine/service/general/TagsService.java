@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,7 +28,7 @@ public class TagsService {
         if (query == null) {
             query = "";
         }
-        final String queryFinal = query;
+        final String queryFinal = query.toLowerCase(Locale.ROOT);
         List<TagEntity> tagList = tagRepository
                 .findAll(JpaSort.unsafe(Sort.Direction.DESC, "size(tag2PostEntities)"))
                 .stream()

@@ -1,25 +1,25 @@
-package com.skillbox.devpubengine.api.response.auth;
+package com.skillbox.devpubengine.api.response.general;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class RegisterResponse {
+public class GenericResultResponse {
 
     private boolean result;
 
     private Map<String, String> errors = null;
 
-    public RegisterResponse() {
+    public GenericResultResponse() {
 
     }
 
-    public RegisterResponse(boolean result) {
+    public GenericResultResponse(boolean result) {
         this.result = result;
     }
 
-    public RegisterResponse(boolean result, Map<String, String> errors) {
+    public GenericResultResponse(boolean result, Map<String, String> errors) {
         this.result = result;
         this.errors = errors;
     }

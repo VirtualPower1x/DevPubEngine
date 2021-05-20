@@ -11,7 +11,7 @@ public class TagEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
 
     @OneToMany(mappedBy = "tag2PostID.tag", cascade = CascadeType.ALL)
