@@ -19,7 +19,7 @@ public class ApiPostController {
     private final GetPostsByDateService getPostsByDateService;
     private final GetPostsByTagService getPostsByTagService;
     private final GetPostByIDService getPostByIDService;
-    private final GetMyPostsService getMyPostsService;
+    private final GetUserPostsService getUserPostsService;
     private final GetPostsForModerationService getPostsForModerationService;
     private final AddUpdatePostService addUpdatePostService;
     private final LikeDislikePostService likeDislikePostService;
@@ -29,7 +29,7 @@ public class ApiPostController {
                              GetPostsByDateService getPostsByDateService,
                              GetPostsByTagService getPostsByTagService,
                              GetPostByIDService getPostByIDService,
-                             GetMyPostsService getMyPostsService,
+                             GetUserPostsService getUserPostsService,
                              GetPostsForModerationService getPostsForModerationService,
                              AddUpdatePostService addUpdatePostService,
                              LikeDislikePostService likeDislikePostService) {
@@ -38,7 +38,7 @@ public class ApiPostController {
         this.getPostsByDateService = getPostsByDateService;
         this.getPostsByTagService = getPostsByTagService;
         this.getPostByIDService = getPostByIDService;
-        this.getMyPostsService = getMyPostsService;
+        this.getUserPostsService = getUserPostsService;
         this.getPostsForModerationService = getPostsForModerationService;
         this.addUpdatePostService = addUpdatePostService;
         this.likeDislikePostService = likeDislikePostService;
@@ -76,7 +76,7 @@ public class ApiPostController {
     @PreAuthorize("hasAuthority('user:write')")
     @GetMapping("/my")
     public ResponseEntity<PostsResponse> getMyPosts (GetMyPostsRequest request) {
-        return ResponseEntity.ok(getMyPostsService.getMyPosts(request));
+        return ResponseEntity.ok(getUserPostsService.getMyPosts(request));
     }
 
     @PreAuthorize("hasAuthority('user:moderate')")

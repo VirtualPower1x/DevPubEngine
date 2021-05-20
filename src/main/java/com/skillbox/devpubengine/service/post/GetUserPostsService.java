@@ -21,15 +21,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class GetMyPostsService {
+public class GetUserPostsService {
 
     private final PostRepository postRepository;
     private final CurrentUserService currentUserService;
     private final PostMapper postMapper;
 
-    public GetMyPostsService(PostRepository postRepository,
-                             CurrentUserService currentUserService,
-                             PostMapper postMapper) {
+    public GetUserPostsService(PostRepository postRepository,
+                               CurrentUserService currentUserService,
+                               PostMapper postMapper) {
         this.postRepository = postRepository;
         this.currentUserService = currentUserService;
         this.postMapper = postMapper;
