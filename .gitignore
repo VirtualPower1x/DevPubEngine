@@ -31,3 +31,5 @@ build/
 
 ### VS Code ###
 .vscode/
+/upload/
+/src/main/resources/static/user-photos/

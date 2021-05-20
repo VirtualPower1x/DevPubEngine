@@ -1,13 +1,14 @@
 package com.skillbox.devpubengine.controller;
 
 import com.skillbox.devpubengine.api.request.auth.LoginRequest;
+import com.skillbox.devpubengine.api.request.auth.PasswordChangeRequest;
+import com.skillbox.devpubengine.api.request.auth.PasswordRestoreRequest;
 import com.skillbox.devpubengine.api.request.auth.RegisterRequest;
 import com.skillbox.devpubengine.api.response.auth.CaptchaResponse;
 import com.skillbox.devpubengine.api.response.auth.LoginResponse;
-import com.skillbox.devpubengine.api.response.auth.RegisterResponse;
-import com.skillbox.devpubengine.service.auth.CaptchaService;
-import com.skillbox.devpubengine.service.auth.LoginService;
-import com.skillbox.devpubengine.service.auth.RegisterService;
+import com.skillbox.devpubengine.api.response.general.GenericResultResponse;
+import com.skillbox.devpubengine.service.auth.*;
+import com.skillbox.devpubengine.service.general.SettingsService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -24,12 +24,22 @@ public class ApiAuthController {
     private final CaptchaService captchaService;
     private final RegisterService registerService;
     private final LoginService loginService;
+    private final SettingsService settingsService;
+    private final PasswordChangeService passwordChangeService;
+    private final PasswordRestoreService passwordRestoreService;
 
     public ApiAuthController(CaptchaService captchaService,
-                             RegisterService registerService, LoginService loginService) {
+                             RegisterService registerService,
+                             LoginService loginService,
+                             SettingsService settingsService,
+                             PasswordChangeService passwordChangeService,
+                             PasswordRestoreService passwordRestoreService) {
         this.captchaService = captchaService;
         this.registerService = registerService;
         this.loginService = loginService;
+        this.settingsService = settingsService;
+        this.passwordChangeService = passwordChangeService;
+        this.passwordRestoreService = passwordRestoreService;
     }
 
     @GetMapping("/check")
@@ -47,7 +57,10 @@ public class ApiAuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<RegisterResponse> register(@RequestBody RegisterRequest request) {
+    public ResponseEntity<GenericResultResponse> register(@RequestBody RegisterRequest request) {
+        if (!settingsService.getSettings().isMultiuserMode()) {
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(registerService.register(request));
     }
 
@@ -58,7 +71,17 @@ public class ApiAuthController {
 
     @PreAuthorize("hasAuthority('user:write')")
     @GetMapping("/logout")
-    public ResponseEntity<Map<String, Boolean>> logout(HttpServletRequest request, HttpServletResponse response) {
+    public ResponseEntity<GenericResultResponse> logout(HttpServletRequest request, HttpServletResponse response) {
         return ResponseEntity.ok(loginService.logout(request, response));
+    }
+
+    @PostMapping("/restore")
+    public ResponseEntity<GenericResultResponse> restorePassword(@RequestBody PasswordRestoreRequest request) {
+        return ResponseEntity.ok(passwordRestoreService.restorePassword(request));
+    }
+
+    @PostMapping("/password")
+    public ResponseEntity<GenericResultResponse> changePassword(@RequestBody PasswordChangeRequest request) {
+        return ResponseEntity.ok(passwordChangeService.changePassword(request));
     }
 }

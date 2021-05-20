@@ -1,7 +1,7 @@
 package com.skillbox.devpubengine.service.auth;
 
 import com.skillbox.devpubengine.api.request.auth.RegisterRequest;
-import com.skillbox.devpubengine.api.response.auth.RegisterResponse;
+import com.skillbox.devpubengine.api.response.general.GenericResultResponse;
 import com.skillbox.devpubengine.model.UserEntity;
 import com.skillbox.devpubengine.repository.CaptchaCodeRepository;
 import com.skillbox.devpubengine.repository.UserRepository;
@@ -27,10 +27,10 @@ public class RegisterService {
     }
 
     @Transactional
-    public RegisterResponse register (RegisterRequest request) {
+    public GenericResultResponse register (RegisterRequest request) {
         Map<String, String> errors = verifyUserData(request);
         if (!errors.isEmpty()) {
-            return new RegisterResponse(false, errors);
+            return new GenericResultResponse(false, errors);
         }
 
         LocalDateTime currentTimeUtc = LocalDateTime.now()
@@ -46,7 +46,7 @@ public class RegisterService {
                 request.getEmail(),
                 passwordHash);
         userRepository.save(user);
-        return new RegisterResponse(true);
+        return new GenericResultResponse(true);
     }
 
     private Map<String, String> verifyUserData (RegisterRequest request) {

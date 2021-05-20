@@ -2,6 +2,7 @@ package com.skillbox.devpubengine.service.auth;
 
 import com.skillbox.devpubengine.api.request.auth.LoginRequest;
 import com.skillbox.devpubengine.api.response.auth.LoginResponse;
+import com.skillbox.devpubengine.api.response.general.GenericResultResponse;
 import com.skillbox.devpubengine.model.UserEntity;
 import com.skillbox.devpubengine.repository.UserRepository;
 import com.skillbox.devpubengine.utils.mapper.UserMapper;
@@ -17,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Map;
 
 @Service
 public class LoginService {
@@ -47,16 +47,18 @@ public class LoginService {
         UserEntity currentUser = userRepository
                 .findByEmail(login)
                 .orElseThrow(() -> new UsernameNotFoundException(String.format("Cannot find login %s", login)));
+        currentUser.setCode(null);
+        userRepository.save(currentUser);
         return new LoginResponse(true, userMapper.userEntityToLoginUserData(currentUser));
     }
 
     @Transactional
-    public Map<String, Boolean> logout(HttpServletRequest request, HttpServletResponse response) {
+    public GenericResultResponse logout(HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null)
         {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
-        return Map.of("result", true);
+        return new GenericResultResponse(true);
     }
 }

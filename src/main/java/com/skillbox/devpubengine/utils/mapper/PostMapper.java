@@ -1,5 +1,6 @@
 package com.skillbox.devpubengine.utils.mapper;
 
+import com.skillbox.devpubengine.api.request.post.AddPostRequest;
 import com.skillbox.devpubengine.api.response.post.*;
 import com.skillbox.devpubengine.model.*;
 import org.mapstruct.Mapper;
@@ -7,6 +8,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.springframework.stereotype.Component;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.List;
@@ -38,6 +40,17 @@ public interface PostMapper {
     @Mapping(source = "postCommentEntities", target = "comments")
     @Mapping(source = "tag2PostEntities", target = "tags")
     PostByIDResponse postEntityToPostByIDResponse (PostEntity post);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(source = "request.active", target = "isActive", qualifiedByName = "isActiveFromByte")
+    @Mapping(source = "defaultStatus", target = "moderationStatus")
+    @Mapping(source = "currentUser", target = "user")
+    @Mapping(source = "request.timestamp", target = "time")
+    @Mapping(source = "request.title", target = "title")
+    @Mapping(source = "request.text", target = "text")
+    @Mapping(expression = "java(0)", target = "viewCount")
+    PostEntity addPostRequestToPostEntity (AddPostRequest request, ModerationStatus defaultStatus,
+                                           UserEntity currentUser);
 
     @Mapping(source = "id", target = "id")
     @Mapping(source = "time", target = "timestamp")
@@ -81,6 +94,16 @@ public interface PostMapper {
                 .stream()
                 .filter(e -> e.getValue() == -1)
                 .count();
+    }
+
+    @Named("isActiveFromByte")
+    default boolean isActiveFromByte (byte active) {
+        return active == 1;
+    }
+
+    default LocalDateTime timeFromTimestamp (long timestamp) {
+        long time = Math.max(timestamp, System.currentTimeMillis());
+        return LocalDateTime.ofInstant(Instant.ofEpochMilli(time), ZoneOffset.UTC);
     }
 
     default String tagNamesFromTag2PostList (Tag2PostEntity tag2Post) {

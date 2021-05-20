@@ -14,6 +14,10 @@ public class Tag2PostEntity {
 
     }
 
+    public Tag2PostEntity(Tag2PostID tag2PostID) {
+        this.tag2PostID = tag2PostID;
+    }
+
     public Tag2PostID getTag2PostID() {
         return tag2PostID;
     }

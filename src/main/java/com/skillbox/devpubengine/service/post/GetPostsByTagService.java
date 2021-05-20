@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Service
@@ -34,7 +35,7 @@ public class GetPostsByTagService {
         }
         int pageCount = request.getOffset() / request.getLimit();
         Pageable pageable = PageRequest.of(pageCount, request.getLimit(), Sort.by("time").descending());
-        Page<PostEntity> page = postRepository.findActivePostsByTag(pageable, request.getTag());
+        Page<PostEntity> page = postRepository.findActivePostsByTag(pageable, request.getTag().toLowerCase(Locale.ROOT));
         List<PostData> posts = page
                 .stream()
                 .map(postMapper::postEntityToPostData)
