@@ -1,16 +1,15 @@
 package com.skillbox.devpubengine.service.general;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.Singleton;
 import com.skillbox.devpubengine.exception.FileUploadException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
-
-import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 @Service
 public class ImageService {
@@ -26,21 +25,21 @@ public class ImageService {
             throw new FileUploadException("extension");
         }
         String subdirs = buildDirectories();
-        String filePath = subdirs + "/" + randomHash(6) + extension;
-
+        String filePath = subdirs + "/" + randomHash(6);
+        String target;
         try {
-            if (!Files.isDirectory(Path.of(System.getProperty("user.dir") + subdirs))){
-                Files.createDirectories(Path.of(System.getProperty("user.dir") + subdirs));
-            }
-            Files.copy(
-                    image.getInputStream(),
-                    Path.of(System.getProperty("user.dir") + filePath),
-                    REPLACE_EXISTING);
+            Cloudinary cloudinary = Singleton.getCloudinary();
+            target = cloudinary.uploader().upload(image.getBytes(), Map.of(
+                    "public_id", filePath,
+                    "overwrite", true,
+                    "use_filename", true,
+                    "unique_filename", true))
+                    .get("secure_url").toString();
         }
         catch (IOException e) {
             throw new FileUploadException();
         }
-        return filePath;
+        return target;
     }
 
     private Optional<String> getExtension (String filename) {
@@ -51,7 +50,7 @@ public class ImageService {
     }
 
     private String buildDirectories() {
-        return "/upload/" + randomHash(2) +
+        return "upload/" + randomHash(2) +
                 "/" +
                 randomHash(2) +
                 "/" +

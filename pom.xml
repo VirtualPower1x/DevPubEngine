@@ -18,6 +18,7 @@
         <mysql.version>8.0.23</mysql.version>
         <liquibase.version>4.3.4</liquibase.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
+        <cloudinary.version>1.29.0</cloudinary.version>
     </properties>
 
     <parent>
@@ -160,6 +161,16 @@
             <groupId>org.imgscalr</groupId>
             <artifactId>imgscalr-lib</artifactId>
             <version>4.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.cloudinary</groupId>
+            <artifactId>cloudinary-taglib</artifactId>
+            <version>${cloudinary.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.cloudinary</groupId>
+            <artifactId>cloudinary-http44</artifactId>
+            <version>${cloudinary.version}</version>
         </dependency>
     </dependencies>
 
